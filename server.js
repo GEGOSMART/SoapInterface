@@ -5,7 +5,7 @@ var http = require('http');
 var service = {
     ws: {
         questionList: {
-            questions : function(args) {
+            questions : async function(args) {
                 var category = args.category
                 return { res : "you asked for questions from: "+category };
             },
@@ -37,9 +37,9 @@ server = http.createServer(function(request,response) {
 });
 
 server.listen(2000);
-soap.listen(server, '/questions', service, xml);
+soap.listen(server, '/questionsrng', service, xml);
 console.log("server listening")
 
 
 //WSDL FILE IN:
-//http://localhost:2000/questions?wsdl
+//http://localhost:2000/questionsrng?wsdl
