@@ -8,6 +8,13 @@
 
   <wsdl:message name="questionsResponse">
     <wsdl:part name="res" type="xsd:string"></wsdl:part>
+    <wsdl:part name="statement" type="xsd:string"></wsdl:part>
+    <wsdl:part name="optionA" type="xsd:string"></wsdl:part>
+    <wsdl:part name="optionB" type="xsd:string"></wsdl:part>
+    <wsdl:part name="optionC" type="xsd:string"></wsdl:part>
+    <wsdl:part name="optionD" type="xsd:string"></wsdl:part>
+    <wsdl:part name="image" type="xsd:string"></wsdl:part>
+    <wsdl:part name="ans" type="xsd:string"></wsdl:part>
   </wsdl:message>
 
 
