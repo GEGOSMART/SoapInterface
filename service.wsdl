@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://localhost:2000/questionsrng" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="questionsrng" targetNamespace="http://localhost:2000/questionsrng">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://54.198.239.79:2000/questionsrng" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="questionsrng" targetNamespace="http://54.198.239.79:2000/questionsrng">
 
 <wsdl:message name="questionsRequest">
     <wsdl:part name="category" type="xsd:string"></wsdl:part>
@@ -31,12 +31,12 @@
     <wsdl:operation name="questions">
       <soap:operation soapAction="questions"/>
       <wsdl:input>
-        <soap:body namespace="http://localhost:2000/questionsrng"
+        <soap:body namespace="http://54.198.239.79:2000/questionsrng"
                    use="literal"
                    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
       </wsdl:input>
       <wsdl:output>
-       <soap:body namespace="http://localhost:2000/questionsrng"
+       <soap:body namespace="http://54.198.239.79:2000/questionsrng"
                   use="literal"
                   encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
      </wsdl:output>
@@ -46,7 +46,7 @@
 
   <wsdl:service name="ws">
     <wsdl:port name="questionList" binding="tns:questionsBinding">
-      <soap:address location="http://localhost:2000/questionsrng"/>
+      <soap:address location="http://54.198.239.79:2000/questionsrng"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
