@@ -1,8 +1,15 @@
 var soap = require('soap');
 var http = require('http');
 var axios = require('axios');
-const xml2js = require('xml2js');
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+//Used to avoid CORS errors
+const cors = require('cors');
+// Call express framework
+var express = require('express');
+// Import path
+const path = require("path");
+
+var app = express();
+
 const URL = "http://54.198.239.79:5230/graphql"; //proxy url
 
 var service = {
@@ -30,8 +37,7 @@ var service = {
                     `
                   })
                 if(questions &&  questions.data &&  questions.data.data &&  questions.data.data.gameQuestions.preguntas){
-                  const rngQuestion = questions.data.data.gameQuestions.preguntas[Math.floor(Math.random() * questions.data.data.gameQuestions.preguntas.length)];;
-                  return {  res : "Random question from: "+category,
+                  const rngQuestion = questions.data.data.gameQuestions.preguntas[Math.floor(Math.random() * questions.data.data.gameQuestions.preguntas.length)];                  return {  res : "Random question from: "+category,
                             statement: rngQuestion.statement,
                             optionA:  rngQuestion.optionA,
                             optionB: rngQuestion.optionB,
@@ -69,53 +75,38 @@ console.log("server listening")
 
 
 
+test();
 
- let url = 'http://3.221.124.186:1515/WS/Courses?wsdl';
 
- const str = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://soaparquitecture.mycompany.com/">
-        <soapenv:Header/>
-        <soapenv:Body>
-           <soap:allCourses/>
-        </soapenv:Body>
-     </soapenv:Envelope>`;
 
-function createCORSRequest(method, url){
-  var xhr = new XMLHttpRequest();
-  if("withCredentials" in xhr){
-    xhr.open( method, url, false);
-  }else if(typeof XDomainRequest != "undefined"){
-    xhr = new XDomainRequest();
-    xhr.open(method, url);
-  }else{
-    console.log("CORS not supported");
-    xhr = null;
-  }
-  console.log("entra")
-  return xhr;
-}
 
-var xhr = createCORSRequest("POST", url);
-if(!xhr){
-  console.log("xhr issue");
-  return;
-}
-xhr.onload = function(){
-  console.log("functions")
-  var response = xhr.responseText;
-  
-  xml2js.parseString(response, { mergeAttrs: true },(err, result) => {
-    if(err) {
-        throw err;
-    }
+app.use(function(req,res,next){
+  res.header('Access-Control-Allow-Origin: *');
+  next();
+})
 
-    console.log(result["S:Envelope"]["S:Body"][0]["ns2:allCoursesResponse"][0]["return"])
-    
+const corsOptions = {
+  origin: '*',
+  //origin: 'http://127.0.0.1:3000',
+};
+app.use(express.json({limit: '10mb'}));
+//To avoid CORS errors
+app.use(cors(corsOptions));
+
+//Use public dirname to serve static files
+app.use(express.static(__dirname + '/public'));
+//app.use('/uploads/drivers',express.static(path.join(__dirname, 'public/uploads/drivers')));
+
+//Require route files
+app.use('/interface', api.router);
+
+// Start server in specific port
+app.listen(3001, function(){
+  // Actions on ready
+  logger.info('Server: Server is running');
 });
-}
 
-xhr.setRequestHeader('Content-Type', 'text/xml');
-xhr.send(str);
-
+ 
 
 
 
