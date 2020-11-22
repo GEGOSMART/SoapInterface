@@ -8,6 +8,7 @@ var express = require('express');
 // Import path
 const path = require("path");
 
+var api = require('./api');
 var app = express();
 
 const URL = "http://54.198.239.79:5230/graphql"; //proxy url
@@ -75,7 +76,7 @@ console.log("server listening")
 
 
 
-test();
+
 
 
 
@@ -103,7 +104,7 @@ app.use('/interface', api.router);
 // Start server in specific port
 app.listen(3001, function(){
   // Actions on ready
-  logger.info('Server: Server is running');
+  console.log('Server: Server is running');
 });
 
  
